@@ -26,33 +26,34 @@ public class QuestionResults extends ActionBarActivity {
         setContentView(R.layout.activity_question_results);
         Intent launchedMe = getIntent();
         final int topicID = launchedMe.getIntExtra("questionSet", 0);
-        qNum = launchedMe.getIntExtra("qNum", 0);
         correct = launchedMe.getIntExtra("correct", 0);
         wrong = launchedMe.getIntExtra("wrong", 0);
         numQ = launchedMe.getIntExtra("numQ", 0);
         mBundle = launchedMe.getBundleExtra("mBundle");
         String userAnswer = launchedMe.getStringExtra("userAnswer");
         String answer = launchedMe.getStringExtra("answer");
-        int total = correct + wrong;
 
         TextView correcttxt = (TextView) findViewById(R.id.correct);
         TextView incorrecttxt = (TextView) findViewById(R.id.incorrect);
         TextView answerSummary = (TextView) findViewById(R.id.answersummary);
 
-        if(userAnswer.equals(answer))
-            answerSummary.setText("Congratulations! "+answer+" was the correct choice!");
-        else
-            answerSummary.setText("Sorry! You chose: "+userAnswer+" and the correct response was: "+answer);
+        if(userAnswer.equals(answer)) {
+            answerSummary.setText("Congratulations! " + answer + " was the correct choice!");
+            correct++;
+        } else {
+            wrong++;
+            answerSummary.setText("Sorry! You chose: " + userAnswer + " and the correct response was: " + answer);
+        }
+        int total = correct + wrong;
+        qNum = total;
         correcttxt.setText("You have "+correct+" out of "+total+" correct!");
         incorrecttxt.setText("Incorrect responses so far: "+wrong);
         nextBtn = (Button) findViewById(R.id.nextbtn);
-
         if(total == numQ) {
             nextBtn.setText("Finish");
             lastQ = true;
         } else
             lastQ = false;
-
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,9 +73,7 @@ public class QuestionResults extends ActionBarActivity {
                 finish();
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -69,32 +69,14 @@ public class QuestionPage extends ActionBarActivity {
             public void onClick(View v) {
                 RadioButton userAns = (RadioButton) findViewById(qGroup.getCheckedRadioButtonId());
                 String uAns = userAns.getText().toString();
-
-                if (uAns.equals(answers[topicID][qNum]))
-                    correct++;
-                else
-                    wrong++;
-                qNum++;
-                //qGroup.clearCheck();
-                //nextBtn.setVisibility(View.GONE);
-                //if (qNum < questions[topicID].length) { //Still got more questions
-                    //Change question and options
-                    /*qCounter.setText("Question: "+ (qNum + 1));
-                    question.setText(questions[topicID][qNum]);
-                    op1.setText(opt[topicID][0 + (qNum * 4)]);
-                    op2.setText(opt[topicID][1 + (qNum * 4)]);
-                    op3.setText(opt[topicID][2 + (qNum * 4)]);
-                    op4.setText(opt[topicID][3 + (qNum * 4)]);*/
-                //}
                 Intent nextActivity = new Intent(QuestionPage.this, QuestionResults.class);
                 nextActivity.putExtra("questionSet", topicID);
                 nextActivity.putExtra("correct", correct);
                 nextActivity.putExtra("wrong", wrong);
-                nextActivity.putExtra("qNum", qNum);
                 nextActivity.putExtra("numQ", questions[topicID].length);
                 nextActivity.putExtra("mBundle", mBundle);
                 nextActivity.putExtra("userAnswer", uAns);
-                nextActivity.putExtra("answer", answers[topicID][qNum-1]);
+                nextActivity.putExtra("answer", answers[topicID][qNum]);
                 startActivity(nextActivity);
             }
         });

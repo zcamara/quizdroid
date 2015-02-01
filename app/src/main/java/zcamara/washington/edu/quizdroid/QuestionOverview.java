@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class QuestionOverview extends ActionBarActivity {
 
-    private String[] descriptions = {""
+    private String[] descriptions = {"Love math? Were you that kid in high school that solved math puzzles in your free time? Get an 800 on the math portion of the SAT? If you answered yes to any of these questions, you'll love these simple math questions. No calculators allowed!"
                                     ,""
                                     ,""};
 

@@ -13,8 +13,8 @@ import android.widget.TextView;
 public class QuestionOverview extends ActionBarActivity {
 
     private String[] descriptions = {"Love math? Were you that kid in high school that solved math puzzles in your free time? Get an 800 on the math portion of the SAT? If you answered yes to any of these questions, you'll love these simple math questions. No calculators allowed!"
-                                    ,""
-                                    ,""};
+                                    ,"Physics: the branch of science concerned with the nature and properties of matter and energy. The subject matter of physics, distinguished from that of chemistry and biology, includes mechanics, heat, light and other radiation, sound, electricity, magnetism, and the structure of atoms. Test your random physics knowledge here!"
+                                    ,"Marvel counts among its characters such well-known properties as Spider-Man, Wolverine, Iron Man, the Hulk, Thor, Captain America, the Silver Surfer, Daredevil, and Ghost Rider, such teams as the Avengers, the Fantastic Four, the Guardians of the Galaxy, and X-Men. Most of Marvel's fictional characters operate in a single reality known as the Marvel Universe. How well do you know Marvel characters?"};
 
     private TextView topic;
     private TextView description;

@@ -16,11 +16,11 @@ public class MainActivity extends ActionBarActivity {
     ListView topics;
     String questions[][]={{"What do you get if you add up the numbers 1-100 consecutively?","If a 10 mile taxi ride costs $12 and a 15 mile ride costs $18, then at the same rate how much would a 24 mile ride cost?","Let's say it takes a bunch of workers 90 days to construct a house. Working at the same rate, how many days would be saved if the number of workers was increased by 25%","Lisa has a collection of 80 CDs. If 40 percent of her CDs are rap,and the rest are hip hop, how many hip hop CDs does she have?","What is the smallest positive number that is divisible by 1, 2, 3, 4, 5, and 6?"},
                           {"A man has a mass of 60 kg on Earth. What will his mass be on the Moon?","What will happen to a fresh egg in concentrated saline?","Who is known as \"the father of quantum theory\"?","A man weighs 120 N on Earth. What will he weigh on the Moon?","What is the maximum number of solar eclipses that can be seen from the Earth in one year?","Which of the following is a scalar quantity?"},
-                          {"","","","","","","","","",""}
+                          {"Peter Parker works as a photographer for:","S.H.I.E.L.D.'s highest ranking agent is:","Dr. Doom went to the same college as:","Edwin Jarvis is the butler to:","Wyatt Wingfoot was a college roommate of","Peter Parker's parents are named:","Tony Stark's father is named:"}
     };
     String answers[][]={{"5050","$28.80","18 days","48 CDs","60"},
                         {"60kg","It will float","Max Planck","20 N","5","Energy"},
-                        {"","","","","","","","","",""}
+                        {"The Daily Bugle","Nick Fury","Reed Richards","Tony Stark","Johnny Storm","Richard and Mary Parker","Howard Stark"}
     };
     String opt[][]={
             {
@@ -39,16 +39,13 @@ public class MainActivity extends ActionBarActivity {
                     "Energy","Weight","Acceleration","Displacement"
             },
             {
-                    "","", "","",
-                    "","","","",
-                    "","", "","",
-                    "","","","",
-                    "","", "","",
-                    "","","","",
-                    "","", "","",
-                    "","","","",
-                    "","", "","",
-                    "", "", "",""
+                    "The Daily Bugle","The New York Times", "The Daily Planet","The Rolling Stone",
+                    "Steven Rogers","Nick Fury","Natalia Romanova","Reed Richards",
+                    "Tony Stark","Bruce Banner", "Peter Parker","Reed Richards",
+                    "Charles Xavier","Nick Fury","Tony Stark","Brian Baddock",
+                    "Johnny Storm","Reed Richards", "James Howlett","Peter Parker",
+                    "Martha and Johnathon Parker","William and Jessica Parker","Thomas and Margaret Parker","Richard and Mary Parker",
+                    "Howard Stark","Tyler Stark", "Joseph Stark","Samuel Stark"
             }
     };
 
@@ -85,6 +82,7 @@ public class MainActivity extends ActionBarActivity {
                 // ListView Clicked item value
                 String  itemValue    = (String) topics.getItemAtPosition(position);
                 Intent nextActivity = new Intent(MainActivity.this, QuestionOverview.class);
+                nextActivity.putExtra("questionSet", itemPosition);
                 Bundle mBundle = new Bundle();
                 mBundle.putStringArray("questions", questions[itemPosition]);
                 mBundle.putStringArray("answers", answers[itemPosition]);

@@ -30,7 +30,8 @@ public class QuestionOverview extends ActionBarActivity {
         Intent launchedMe = getIntent();
         final int topicID = launchedMe.getIntExtra("questionSet", 0);
         mBundle = launchedMe.getBundleExtra("mBundle");
-        String[][] questions = (String[][]) mBundle.getSerializable("questions");
+
+        String[] questions = mBundle.getStringArray("questions");
 
         topic = (TextView) findViewById(R.id.topic);
         description = (TextView) findViewById(R.id.description);
@@ -39,13 +40,12 @@ public class QuestionOverview extends ActionBarActivity {
 
         topic.setText(launchedMe.getStringExtra("topic"));
         description.setText(descriptions[topicID]);
-        numQ.setText(questions[topicID].length+" Questions");
+        numQ.setText(questions.length+" Questions");
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextActivity = new Intent(QuestionOverview.this, QuestionPage.class);
-                nextActivity.putExtra("questionSet", topicID);
                 nextActivity.putExtra("mBundle", mBundle);
                 startActivity(nextActivity);
                 finish();

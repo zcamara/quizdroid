@@ -19,9 +19,9 @@ public class QuestionPage extends ActionBarActivity {
     private Button nextBtn;
     private RadioGroup qGroup;
     private RadioButton op1,op2,op3,op4;
-    private String questions[][];
-    private String answers[][];
-    private String opt[][];
+    private String questions[];
+    private String answers[];
+    private String opt[];
     private Bundle mBundle;
 
 
@@ -41,21 +41,20 @@ public class QuestionPage extends ActionBarActivity {
         qCounter = (TextView) findViewById(R.id.questionNum);
 
         Intent launchedMe = getIntent();
-        final int topicID = launchedMe.getIntExtra("questionSet", 0);
         qNum = launchedMe.getIntExtra("qNum", 0);
         correct = launchedMe.getIntExtra("correct", 0);
         wrong = launchedMe.getIntExtra("wrong", 0);
         mBundle = launchedMe.getBundleExtra("mBundle");
-        questions = (String[][]) mBundle.getSerializable("questions");
-        answers = (String[][]) mBundle.getSerializable("answers");
-        opt = (String[][]) mBundle.getSerializable("opt");
+        questions = mBundle.getStringArray("questions");
+        answers = mBundle.getStringArray("answers");
+        opt = mBundle.getStringArray("opt");
 
         qCounter.setText("Question: "+ (qNum + 1));
-        question.setText(questions[topicID][qNum]);
-        op1.setText(opt[topicID][0 + (qNum * 4)]);
-        op2.setText(opt[topicID][1 + (qNum * 4)]);
-        op3.setText(opt[topicID][2 + (qNum * 4)]);
-        op4.setText(opt[topicID][3 + (qNum * 4)]);
+        question.setText(questions[qNum]);
+        op1.setText(opt[0 + (qNum * 4)]);
+        op2.setText(opt[1 + (qNum * 4)]);
+        op3.setText(opt[2 + (qNum * 4)]);
+        op4.setText(opt[3 + (qNum * 4)]);
 
         qGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -70,13 +69,12 @@ public class QuestionPage extends ActionBarActivity {
                 RadioButton userAns = (RadioButton) findViewById(qGroup.getCheckedRadioButtonId());
                 String uAns = userAns.getText().toString();
                 Intent nextActivity = new Intent(QuestionPage.this, QuestionResults.class);
-                nextActivity.putExtra("questionSet", topicID);
                 nextActivity.putExtra("correct", correct);
                 nextActivity.putExtra("wrong", wrong);
-                nextActivity.putExtra("numQ", questions[topicID].length);
+                nextActivity.putExtra("numQ", questions.length);
                 nextActivity.putExtra("mBundle", mBundle);
                 nextActivity.putExtra("userAnswer", uAns);
-                nextActivity.putExtra("answer", answers[topicID][qNum]);
+                nextActivity.putExtra("answer", answers[qNum]);
                 startActivity(nextActivity);
             }
         });

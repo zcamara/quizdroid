@@ -25,7 +25,6 @@ public class QuestionResults extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_results);
         Intent launchedMe = getIntent();
-        final int topicID = launchedMe.getIntExtra("questionSet", 0);
         correct = launchedMe.getIntExtra("correct", 0);
         wrong = launchedMe.getIntExtra("wrong", 0);
         numQ = launchedMe.getIntExtra("numQ", 0);
@@ -60,7 +59,6 @@ public class QuestionResults extends ActionBarActivity {
                 Intent nextActivity;
                 if(!lastQ) {
                     nextActivity = new Intent(QuestionResults.this, QuestionPage.class);
-                    nextActivity.putExtra("questionSet", topicID);
                     nextActivity.putExtra("correct", correct);
                     nextActivity.putExtra("wrong", wrong);
                     nextActivity.putExtra("qNum", qNum);

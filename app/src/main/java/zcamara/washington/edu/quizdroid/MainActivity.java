@@ -15,12 +15,12 @@ public class MainActivity extends ActionBarActivity {
 
     ListView topics;
     String questions[][]={{"What do you get if you add up the numbers 1-100 consecutively?","If a 10 mile taxi ride costs $12 and a 15 mile ride costs $18, then at the same rate how much would a 24 mile ride cost?","Let's say it takes a bunch of workers 90 days to construct a house. Working at the same rate, how many days would be saved if the number of workers was increased by 25%","Lisa has a collection of 80 CDs. If 40 percent of her CDs are rap,and the rest are hip hop, how many hip hop CDs does she have?","What is the smallest positive number that is divisible by 1, 2, 3, 4, 5, and 6?"},
-                          {"","",""},
-                          {"","",""}
+                          {"A man has a mass of 60 kg on Earth. What will his mass be on the Moon?","What will happen to a fresh egg in concentrated saline?","Who is known as \"the father of quantum theory\"?","A man weighs 120 N on Earth. What will he weigh on the Moon?","What is the maximum number of solar eclipses that can be seen from the Earth in one year?","Which of the following is a scalar quantity?"},
+                          {"","","","","","","","","",""}
     };
     String answers[][]={{"5050","$28.80","18 days","48 CDs","60"},
-                        {"","",""},
-                        {"","",""}
+                        {"60kg","It will float","Max Planck","20 N","5","Energy"},
+                        {"","","","","","","","","",""}
     };
     String opt[][]={
             {
@@ -31,13 +31,23 @@ public class MainActivity extends ActionBarActivity {
                     "60", "120", "30", "180"
             },
             {
-                    "","", "", "",
-                    "","","","",
-                    "", "", "",""
+                    "90kg","20kg", "60kg", "30kg",
+                    "It will float","It will break","It will sink","It will sink slightly and remain at the center of the water",
+                    "Otto Hahn", "Max Planck", "Albert Einstein","James Chadwick",
+                    "20 N","40 N","60 N","75 N",
+                    "10","7","8","5",
+                    "Energy","Weight","Acceleration","Displacement"
             },
             {
-                    "","", "", "",
+                    "","", "","",
                     "","","","",
+                    "","", "","",
+                    "","","","",
+                    "","", "","",
+                    "","","","",
+                    "","", "","",
+                    "","","","",
+                    "","", "","",
                     "", "", "",""
             }
     };
@@ -75,11 +85,10 @@ public class MainActivity extends ActionBarActivity {
                 // ListView Clicked item value
                 String  itemValue    = (String) topics.getItemAtPosition(position);
                 Intent nextActivity = new Intent(MainActivity.this, QuestionOverview.class);
-                nextActivity.putExtra("questionSet", itemPosition);
                 Bundle mBundle = new Bundle();
-                mBundle.putSerializable("questions", questions);
-                mBundle.putSerializable("answers", answers);
-                mBundle.putSerializable("opt", opt);
+                mBundle.putStringArray("questions", questions[itemPosition]);
+                mBundle.putStringArray("answers", answers[itemPosition]);
+                mBundle.putStringArray("opt", opt[itemPosition]);
                 nextActivity.putExtra("mBundle", mBundle);
                 nextActivity.putExtra("topic", itemValue);
                 startActivity(nextActivity);

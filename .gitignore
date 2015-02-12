@@ -1,9 +1,5 @@
-/quizdroid1/local.properties
-/quizdroid1/.idea/workspace.xml
-/quizdroid1/.idea/libraries
-/quizdroid2/local.properties
-/quizdroid2/.idea/workspace.xml
-/quizdroid2/.idea/libraries
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-/quizdroid1/build
-/quizdroid2/build
+/build

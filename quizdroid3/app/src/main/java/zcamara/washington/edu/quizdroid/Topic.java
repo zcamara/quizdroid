@@ -1,25 +1,36 @@
 package zcamara.washington.edu.quizdroid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by zachcamara on 2/15/15.
  */
-public class Topic {
+public class Topic implements Serializable{
     private String title;
     private String shortDesc;
     private String longDesc;
     private Collection<Quiz> questions;
 
-    public Topic(String title, String shortDesc, String longDesc) {
+    public Topic() {
+    }
+
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setShortDesc(String shortDesc) {
         this.shortDesc = shortDesc;
+    }
+
+    public void setLongDesc(String longDesc) {
         this.longDesc = longDesc;
-        questions = new ArrayList<Quiz>();
     }
 
     public void addQuestion(Quiz newQuestion) {
+        if(questions == null)
+            questions = new ArrayList<Quiz>();
         questions.add(newQuestion);
     }
 

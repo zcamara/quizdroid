@@ -61,10 +61,17 @@ public class myRepo implements TopicRepository {
         repo = new ArrayList<Topic>();
         for (int topicID = 0; topicID < topics.length; topicID++) {
             //Build all question objects for single topic
-            Topic newTopic = new Topic(topics[topicID],shortDesc[topicID],descriptions[topicID]);
+            Topic newTopic = new Topic();
+            newTopic.setTitle(topics[topicID]);
+            newTopic.setShortDesc(shortDesc[topicID]);
+            newTopic.setLongDesc(descriptions[topicID]);
             for (int questionID = 0; questionID < questions[topicID].length; questionID++) {
                 //String question, String[] answers, int correctAns
-                newTopic.addQuestion(new Quiz(questions[topicID][questionID],opt[topicID][questionID],answers[topicID][questionID]));
+                Quiz newQuestion = new Quiz();
+                newQuestion.setQuestion(questions[topicID][questionID]);
+                newQuestion.setAnswers(opt[topicID][questionID]);
+                newQuestion.setCorrectAns(answers[topicID][questionID]);
+                newTopic.addQuestion(newQuestion);
             }
             repo.add(newTopic);
         }

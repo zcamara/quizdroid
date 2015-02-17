@@ -12,6 +12,7 @@ public class Topic implements Serializable{
     private String shortDesc;
     private String longDesc;
     private Collection<Quiz> questions;
+    private int icon;
 
     public Topic() {
     }
@@ -48,6 +49,14 @@ public class Topic implements Serializable{
 
     public String getLongDesc() {
         return longDesc;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
 }

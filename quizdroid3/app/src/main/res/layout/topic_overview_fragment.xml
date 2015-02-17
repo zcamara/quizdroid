@@ -10,15 +10,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/to"/>
 
+    <ImageView
+        android:id="@+id/ico"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/to"
+        android:layout_centerHorizontal="true"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Topic"
         android:id="@+id/topic"
-        android:layout_below="@+id/to"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/ico"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"

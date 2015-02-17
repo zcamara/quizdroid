@@ -1,12 +1,14 @@
 package zcamara.washington.edu.quizdroid;
 
 import android.app.Application;
+import android.util.Log;
 
 /**
  * Created by zachcamara on 2/15/15.
  */
 public class QuizApp extends Application {
     private static QuizApp sInstance;
+    private static final String TAG = QuizApp.class.getName();
 
     private TopicRepository topics;
 
@@ -22,9 +24,7 @@ public class QuizApp extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        //LOG MESSAGE HERE FOR POINTS!!!!!!!!!!!!!!!!
-        //NEED TO ADDD
-        //DON't FORGET
+        Log.i(TAG, "QuizApp loaded successfully!");
         sInstance.initializeInstance();
     }
 

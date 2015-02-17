@@ -11,6 +11,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.view.View;
 import java.util.ArrayList;
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,16 +29,21 @@ public class MainActivity extends ActionBarActivity {
         topics = (ListView) findViewById(R.id.topics);
         // Defined Array values to show in ListView
         ArrayList<String> values = new ArrayList<String>();
+        ArrayList<Integer> icons = new ArrayList<Integer>();
         for (Topic topic : QuizApp.getInstance().getRepo().getRepo()) {
             values.add(topic.getTitle() + ": " + topic.getShortDesc());
+            icons.add(topic.getIcon());
         }
         // Define a new Adapter
         // First parameter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        CustomList adapter = new CustomList(MainActivity.this, values, icons);
+
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);*/
         // Assign adapter to ListView
         topics.setAdapter(adapter);
         // ListView Item Click Listener
@@ -76,5 +86,29 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public class CustomList extends ArrayAdapter<String>{
+        private final Activity context;
+        private final ArrayList<String> web;
+        private final ArrayList<Integer> imageId;
+        public CustomList(Activity context,
+                          ArrayList<String> web, ArrayList<Integer> imageId) {
+            super(context, R.layout.list_single, web);
+            this.context = context;
+            this.web = web;
+            this.imageId = imageId;
+        }
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView= inflater.inflate(R.layout.list_single, null, true);
+            TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+            ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
+            txtTitle.setText(web.get(position));
+            imageView.setImageResource(imageId.get(position));
+            return rowView;
+        }
+    }
+
 }
 

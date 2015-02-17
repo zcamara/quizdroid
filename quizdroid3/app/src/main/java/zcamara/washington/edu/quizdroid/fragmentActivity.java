@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.ImageView;
 import java.util.ArrayList;
 
 
@@ -74,12 +75,14 @@ public class fragmentActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.topic_overview_fragment, container, false);
 
             TextView topic = (TextView) rootView.findViewById(R.id.topic);
+            ImageView icon = (ImageView) rootView.findViewById(R.id.ico);
             TextView description = (TextView) rootView.findViewById(R.id.description);
             Button startBtn = (Button) rootView.findViewById(R.id.beginbtn);
             TextView numQ = (TextView) rootView.findViewById(R.id.numQ);
 
             topic.setText(topicObj.getTitle());
             description.setText(topicObj.getLongDesc());
+            icon.setImageResource(topicObj.getIcon());
             numQ.setText(topicObj.getQuestions().size()+" Questions");
 
             startBtn.setOnClickListener(new View.OnClickListener() {

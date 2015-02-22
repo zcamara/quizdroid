@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Question Settings" >
+        <EditTextPreference
+            android:title="Question URL"
+            android:summary="Set the URL"
+            android:key="prefURL"/>
+        <EditTextPreference
+            android:title="Question Sync Frequency"
+            android:summary="Input a number"
+            android:key="prefFreq"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

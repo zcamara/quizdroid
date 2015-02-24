@@ -7,8 +7,10 @@
             android:summary="Set the URL"
             android:key="prefURL"/>
         <EditTextPreference
-            android:title="Question Sync Frequency"
+            android:title="Question Sync Frequency (Minutes)"
             android:summary="Input a number"
+            android:inputType="number"
+            android:digits="0123456789"
             android:key="prefFreq"/>
     </PreferenceCategory>
 

@@ -42,12 +42,28 @@ public class QuizApp extends Application {
 
     public void startAlarm() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String prefFreq = sp.getString("prefFreq","1");
-        int frequency = Integer.parseInt(prefFreq);
-        alarmIntent = new Intent(QuizApp.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(QuizApp.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (frequency * 1000 * 60), pendingIntent);
-        Toast.makeText(getInstance(), "Will attempt to download new questions every: " + frequency + " minute(s)", Toast.LENGTH_SHORT).show();
+        String prefFreq = sp.getString("prefFreq","1"); //default to 1 minute
+        if(!prefFreq.equals("0")) {
+            int frequency = Integer.parseInt(prefFreq);
+            alarmIntent = new Intent(QuizApp.this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(QuizApp.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (frequency * 1000 * 60), pendingIntent);
+            Toast.makeText(getInstance(), "Will attempt to download new questions every: " + frequency + " minute(s)", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getInstance(), "Please enter a valid number that is greater than 0", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void startAlarm(String freq) {
+        if(!freq.equals("0")) {
+            int frequency = Integer.parseInt(freq);
+            alarmIntent = new Intent(QuizApp.this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(QuizApp.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (frequency * 1000 * 60), pendingIntent);
+            Toast.makeText(getInstance(), "Will attempt to download new questions every: " + frequency + " minute(s)", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getInstance(), "Please enter a valid number that is greater than 0", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void killAlarm() {

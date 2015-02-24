@@ -26,7 +26,7 @@ public class preferenceActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 QuizApp.getInstance().killAlarm();
-                QuizApp.getInstance().startAlarm();
+                QuizApp.getInstance().startAlarm(newValue.toString());
                 return true;
             }
         });

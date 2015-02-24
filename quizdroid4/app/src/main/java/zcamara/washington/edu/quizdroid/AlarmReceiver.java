@@ -13,7 +13,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // For our recurring task, we'll just display a message
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String prefURL = sp.getString("prefURL","defaultvalue");
+        String prefURL = sp.getString("prefURL","http://tednewardsandbox.site44.com/questions.json");
         Toast.makeText(context, prefURL, Toast.LENGTH_SHORT).show();
     }
 }

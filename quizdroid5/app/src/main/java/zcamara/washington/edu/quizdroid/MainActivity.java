@@ -16,6 +16,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.net.ConnectivityManager;
+import android.content.Context;
+import android.net.NetworkInfo;
+import android.provider.Settings;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -64,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                 // ListView Clicked item value
                 String[] topicNames = QuizApp.getInstance().getRepo().getTopics();
                 Intent nextActivity = new Intent(MainActivity.this, fragmentActivity.class);
-                nextActivity.putExtra("topic",topicNames[position]);
+                nextActivity.putExtra("topic", topicNames[position]);
                 nextActivity.putExtra("qNum", 0);
                 nextActivity.putExtra("correct", 0);
                 nextActivity.putExtra("wrong", 0);
@@ -72,6 +78,60 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (!isConnected) {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setTitle("No Internet Connection");
+            builder1.setMessage("You currently have no Internet connection!");
+            builder1.setCancelable(true);
+            builder1.setNeutralButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+        boolean airplaneMode;
+        if (android.os.Build.VERSION.RELEASE.startsWith("4.2") ||
+                android.os.Build.VERSION.RELEASE.startsWith("4.3") ||
+                android.os.Build.VERSION.RELEASE.startsWith("4.4") ||
+                android.os.Build.VERSION.RELEASE.startsWith("5.")) {
+            airplaneMode = Settings.System.getInt(getApplicationContext().getContentResolver(),
+                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        } else {
+            airplaneMode = Settings.System.getInt(getApplicationContext().getContentResolver(),
+                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        }
+        if(airplaneMode) {
+            //Would you like to turn airplane mode off? Yes -> settings activity
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            // set title
+            alertDialogBuilder.setTitle("Airplane Mode is Enabled!");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Would you like to turn airplane mode off?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            startActivity(new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+        }
+        QuizApp.getInstance().shareContext(MainActivity.this);
     }
 
     @Override

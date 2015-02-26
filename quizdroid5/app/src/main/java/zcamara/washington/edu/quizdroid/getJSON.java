@@ -1,5 +1,7 @@
 package zcamara.washington.edu.quizdroid;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import java.io.BufferedReader;
@@ -27,8 +29,8 @@ protected String doInBackground(String... urls) {
             c.setRequestProperty("Content-length", "0");
             c.setUseCaches(false);
             c.setAllowUserInteraction(false);
-            c.setConnectTimeout(500);
-            c.setReadTimeout(500);
+            c.setConnectTimeout(1000);
+            c.setReadTimeout(1000);
             c.connect();
             int status = c.getResponseCode();
 
@@ -61,21 +63,24 @@ protected String doInBackground(String... urls) {
 
 @Override
 protected void onPostExecute(String result) {
-        // result is what you got from your connection
-    if(result != null && !result.isEmpty()) {
+    // result is what you got from your connection
+    boolean restart = false;
+    if (result != null && !result.isEmpty()) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(context.getFilesDir()+File.separator+"quizdata.json"));
+            if (!QuizApp.getInstance().topicsCached()) {
+                restart = true;
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(context.getFilesDir() + File.separator + "quizdata.json"));
             bufferedWriter.write(result);
             bufferedWriter.close();
-            Toast.makeText(context, "Download successful", Toast.LENGTH_SHORT).show();
+            if (restart)
+                QuizApp.getInstance().restart();
         } catch (IOException e) {
             e.printStackTrace();
         }
     } else {
-        //MAKE DIALOG BOX "DOWNLOAD FAILED. Retry or Quit?
-        Toast.makeText(context, "Error loading questions from: " +url, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Error loading questions from: " + url, Toast.LENGTH_SHORT).show();
+        QuizApp.getInstance().downloadFailed();
     }
-
 }
-
 }
